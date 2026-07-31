@@ -15,6 +15,7 @@ from typing import Optional
 from mcp.server.fastmcp import FastMCP
 
 from .ocr import get_ocr_engine
+from .storage import save_analysis
 
 # ---------------------------------------------------------------------------
 # Constants
@@ -271,7 +272,9 @@ def ocr_image(image_path: str) -> str:
         "full_text": full_text,
     }
 
-    return json.dumps(result, indent=2)
+    result_json = json.dumps(result, indent=2)
+    save_analysis("ocr_image", result_json)
+    return result_json
 
 
 @mcp.tool()
@@ -292,7 +295,9 @@ def image_metadata(path: str) -> str:
     meta = _get_image_metadata(resolved)
     meta["path"] = resolved
 
-    return json.dumps(meta, indent=2)
+    result_json = json.dumps(meta, indent=2)
+    save_analysis("image_metadata", result_json)
+    return result_json
 
 
 @mcp.tool()
@@ -330,7 +335,9 @@ def extract_text(image_path: str) -> str:
         "full_text": full_text,
     }
 
-    return json.dumps(result, indent=2)
+    result_json = json.dumps(result, indent=2)
+    save_analysis("extract_text", result_json)
+    return result_json
 
 
 # ---------------------------------------------------------------------------
