@@ -1,0 +1,28 @@
+[build-system]
+requires = ["setuptools>=75.8.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "image-analysis-mcp"
+version = "0.1.0"
+description = "FastMCP server for image analysis — OCR, metadata, and EXIF extraction. Part of the Palimpsest intelligence toolkit."
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "mcp>=1.0.0,<2.0.0",
+    "Pillow>=10.0",
+    "exifread>=3.0",
+]
+
+[project.optional-dependencies]
+ocr = ["rapidocr-onnxruntime>=1.4"]
+tesseract = ["pytesseract>=0.3.10"]
+
+[project.scripts]
+image-analysis-mcp = "image_analysis_mcp.server:main"
+
+[tool.setuptools.package-dir]
+"" = "src"
+
+[tool.setuptools.packages.find]
+where = ["src"]
